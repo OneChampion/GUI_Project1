@@ -1,0 +1,73 @@
+from tkinter import *
+
+Yousef = Tk()
+# GUI name is Yousef
+Yousef.title("Length Converter")
+# Title of the GUI is
+Yousef.geometry("600x250")
+# give geomerty it's known as resolution
+png = PhotoImage(file="Gui3.png")
+# define image
+png_label = Label(Yousef, image=png)
+# Create label
+png_label.place(x=0, y=0, relwidth=1, relheight=1)
+# Using place to give the image place on the GUI
+scales = ['Kilo', 'Mile', 'Meters','Inches','Foot']
+# I create multiple choice of some units
+
+_from = StringVar()
+
+from_menu = OptionMenu(Yousef, _from, *scales)
+# Creating menu to chose any unit in the scales
+from_menu.grid(row=0,column=0,pady=5)
+# give it grid
+lb = Label(Yousef, text=' convert to ')
+# Create label for it
+lb.grid(row=0,column=1,pady=5)
+# give it grid
+
+to_ = StringVar()
+to_menu = OptionMenu(Yousef, to_, *scales)
+to_menu.grid(row=0,column=2,pady=5)
+
+enterL = Label(Yousef, text="Enter The Unit")
+enterL.grid(row=1,column=0,columnspan=2,pady=5)
+
+numE = Entry(Yousef)
+numE.grid(row=2,column=1, columnspan=2,pady=5)
+
+
+def converter():
+	From = _from.get()
+	To = to_.get()
+	num = int(numE.get())
+
+	if From == 'Kilo' and To == 'Mile':
+		conv_nm = num * 0.62137119
+	elif From == 'Mile' and To == 'Kilo':
+		conv_nm = num * 1.609
+	elif From == 'Meters' and To == 'Inches':
+		conv_nm = num * 39.37
+	elif From == 'Meters' and To == 'Foot':
+		conv_nm = num * 3.28
+	elif From == 'Inches' and To == 'Meters':
+		conv_nm = num / 39.37
+	elif From == 'Inches' and To == 'Foot':
+		conv_nm = num / 12
+	elif From == 'Foot' and To == 'Meters':
+		conv_nm = num / 3.28
+	elif From == 'Foot' and To == 'Inches':
+		conv_nm = num * 12
+	else:
+		conv_nm = num
+
+	numL = Label(Yousef, text=round(conv_nm, 2), width=10)
+	# round to get the last solution with decimal number
+	numL.grid(row=1,column=2,pady=5)
+
+conB = Button(Yousef, text='Convert', command=converter)
+# Give the GUI button to click and do something
+conB.grid(row=2,column=0,pady=5)
+# Give it place
+
+Yousef.mainloop()
